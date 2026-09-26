@@ -48,4 +48,49 @@ public class BinaryAPIControllerTest {
 			.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(10001))
 			.andExpect(MockMvcResultMatchers.jsonPath("$.operator").value("add"));
     }
+	@Test
+    public void multiply() throws Exception {
+        this.mvc.perform(get("/multiply").param("operand1","101").param("operand2","11"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("1111"));
+    }
+	@Test
+    public void multiplyJSON() throws Exception {
+        this.mvc.perform(get("/multiply_json").param("operand1","101").param("operand2","11"))
+            .andExpect(status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.operand1").value(101))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operand2").value(11))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(1111))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operator").value("multiply"));
+    }
+	@Test
+    public void or() throws Exception {
+        this.mvc.perform(get("/or").param("operand1","1000").param("operand2","11"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("1011"));
+    }
+	@Test
+    public void orJSON() throws Exception {
+        this.mvc.perform(get("/or_json").param("operand1","1000").param("operand2","11"))
+            .andExpect(status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.operand1").value(1000))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operand2").value(11))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(1011))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operator").value("or"));
+    }
+	@Test
+    public void and() throws Exception {
+        this.mvc.perform(get("/and").param("operand1","1100").param("operand2","1010"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("1000"));
+    }
+	@Test
+    public void andJSON() throws Exception {
+        this.mvc.perform(get("/and_json").param("operand1","1100").param("operand2","1010"))
+            .andExpect(status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.operand1").value(1100))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operand2").value(1010))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.result").value(1000))
+			.andExpect(MockMvcResultMatchers.jsonPath("$.operator").value("and"));
+    }
 }

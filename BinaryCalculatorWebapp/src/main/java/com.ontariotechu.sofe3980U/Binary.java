@@ -79,4 +79,96 @@ public class Binary
 		return result;
 		
 	}
+
+	/**
+	* Bitwise logical OR of two binary variables.
+	*
+	* @param num1 The first operand object
+	* @param num2 The second operand object
+	* @return A binary variable with a value of <i>num1 | num2</i>.
+	*/
+	public static Binary OR(Binary num1, Binary num2)
+	{
+		int ind1 = num1.number.length() - 1;
+		int ind2 = num2.number.length() - 1;
+		String num3 = ""; // the binary value of the result
+
+		while (ind1 >= 0 || ind2 >= 0) // loop until all digits are processed
+		{
+			char bit1 = (ind1 >= 0) ? num1.number.charAt(ind1) : '0';
+			char bit2 = (ind2 >= 0) ? num2.number.charAt(ind2) : '0';
+
+			if (bit1 == '1' || bit2 == '1') {
+				num3 = "1" + num3;
+			} else {
+				num3 = "0" + num3;
+			}
+
+			ind1--;
+			ind2--;
+		}
+		Binary result = new Binary(num3); // create a binary object with the calculated value.
+		return result;
+	}
+
+	/**
+	* Bitwise logical AND of two binary variables.
+	*
+	* @param num1 The first operand object
+	* @param num2 The second operand object
+	* @return A binary variable with a value of <i>num1 &amp; num2</i>.
+	*/
+	public static Binary AND(Binary num1, Binary num2)
+	{
+		int ind1 = num1.number.length() - 1;
+		int ind2 = num2.number.length() - 1;
+		String num3 = ""; // the binary value of the result
+
+		while (ind1 >= 0 || ind2 >= 0) // loop until all digits are processed
+		{
+			char bit1 = (ind1 >= 0) ? num1.number.charAt(ind1) : '0';
+			char bit2 = (ind2 >= 0) ? num2.number.charAt(ind2) : '0';
+
+			if (bit1 == '1' && bit2 == '1') {
+				num3 = "1" + num3;
+			} else {
+				num3 = "0" + num3;
+			}
+
+			ind1--;
+			ind2--;
+		}
+		Binary result = new Binary(num3); // create a binary object with the calculated value.
+		return result;
+	}
+
+	/**
+	* Multiplying two binary variables using the addition method.
+	*
+	* @param num1 The multiplicand object
+	* @param num2 The multiplier object
+	* @return A binary variable with a value of <i>num1 * num2</i>.
+	*/
+	public static Binary multiply(Binary num1, Binary num2)
+	{
+		Binary result = new Binary("0");
+		String num2Str = num2.number;
+		int length = num2Str.length();
+
+		for (int i = 0; i < length; i++) {
+			// Process from right to left
+			char bit = num2Str.charAt(length - 1 - i);
+
+			if (bit == '1') {
+				// Append 'i' zeros to num1 to shift it left
+				StringBuilder shifted = new StringBuilder(num1.number);
+				for (int j = 0; j < i; j++) {
+					shifted.append("0");
+				}
+				// Add the shifted value to the cumulative result
+				result = Binary.add(result, new Binary(shifted.toString()));
+			}
+		}
+		return result;
+	}
 }	
