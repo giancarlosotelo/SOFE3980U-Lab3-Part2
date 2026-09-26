@@ -6,6 +6,7 @@
 4. Configure a continuous deployment pipeline for a Jenkins job.
 5. test to trigger build
 6. test ci/cd 2
+7. video test
 ## Repository:   
 [https://github.com/zubxxr/SOFE3980U-Lab3-Part2](https://github.com/zubxxr/SOFE3980U-Lab3-Part2) 
 
